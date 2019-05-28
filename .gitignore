@@ -1,0 +1,11 @@
+# IntelliJ
+*.iml
+.idea/
+out/
+
+# LaTeX
+*.log
+*.aux
+
+# Vim
+tags

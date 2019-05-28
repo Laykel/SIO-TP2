@@ -1,0 +1,124 @@
+% Preamble
+% ---
+\documentclass[paper=a4, fontsize=13pt]{scrartcl}
+
+% Packages =========================================================================
+% ---
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  total={170mm,257mm},
+  left=20mm,
+  right=20mm,
+  top=30mm,
+  bottom=35mm,
+}
+\usepackage[utf8]{inputenc}   % UTF-8 support
+\usepackage[french]{babel}
+\usepackage{amsmath,amsfonts} % Advanced math typesetting
+\usepackage{listings}         % Source code formatting and highlighting
+\usepackage{lastpage}         % Reference to last page
+\usepackage[parfill]{parskip} % No indent at start of new line
+\usepackage{color}
+  \definecolor{codegreen}{rgb}{0,0.6,0}
+  \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+  \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\usepackage{fancyhdr}         % Create headers and footers
+	\pagestyle{fancy}
+
+% Create horizontal rule command with 1 argument of height
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+% Title page things ================================================================
+\title{
+  \normalfont \normalsize
+  \textsc{HEIG-VD - Simulation et Optimisation} \\[10pt]
+  \horrule{1pt} \\[0.4cm] % Thin top horizontal rule
+  \huge Travail Pratique 2~:\\Méthode de Monte-Carlo \\
+  \horrule{2pt} \\[0.4cm] % Thick bottom horizontal rule
+}
+\author{Luc \bsc{Wachter}}
+\date{28 mai 2019}
+
+% Header and footer things =========================================================
+\renewcommand{\footrulewidth}{0.4pt}
+\lhead{SIO - Travail pratique 2}
+\rhead{Luc Wachter}
+\lfoot{28.05.2019}
+\cfoot{}
+\rfoot{Page \thepage \ sur \pageref{LastPage}}
+
+% Style for code listings ==========================================================
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    numberstyle=\tiny\color{codegray},
+    basicstyle=\footnotesize,
+    breakatwhitespace=true,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+\lstset{style=codestyle}
+
+% Document =========================================================================
+% ---
+\begin{document}
+
+% Set language for listings
+\lstset{language=Java}
+
+\maketitle
+
+% Début Section 1 ==================================================================
+\section{Introduction}
+De quoi s'agit-il ? C'est pourtant clair.
+\\
+Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
+
+\newpage
+
+% Début Section 2 ==================================================================
+\section{Calcul de N}
+Nous connaissons le calcul pour la largeur \(\Delta_{I_c}\) de l'intervalle de confiance, et pouvons en déduire celui pour sa demi-largeur sans efforts~:
+\begin{align*}
+  \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
+  \Rightarrow \dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
+\end{align*}
+
+% Début Section 3 ==================================================================
+\section{Choix d'implémentation}
+
+\subsection{Implémentation d'une expérience}
+Implémentation d'\texttt{Experiment}
+
+\begin{lstlisting}[frame=single]
+public double execute(Random rnd) {
+    // Generate two points in the unit square and return the distance
+    // between them
+    return Point2D.distance(rnd.nextDouble(), rnd.nextDouble(),
+                            rnd.nextDouble(), rnd.nextDouble());
+}
+\end{lstlisting}
+
+\subsection{Méthode principale de simulation}
+Méthode \texttt{simulateTillGivenCIHalfWidth}
+
+\subsection{Code client}
+La méthode main, quoi, avec les tests.
+
+% Début Section 4 ==================================================================
+\section{Résultats}
+Insérer graphiques super cool ici.
+
+% Début Section 5 ==================================================================
+\section{Conclusion}
+C'était \textbf{trivial}.
+
+\end{document}
