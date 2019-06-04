@@ -85,14 +85,30 @@ Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 \newpage
 
 % Début Section 2 ==================================================================
-\section{Calcul de N}
-Nous connaissons le calcul pour la largeur \(\Delta_{I_c}\) de l'intervalle de confiance, et pouvons en déduire celui pour sa demi-largeur sans efforts~:
-\begin{align*}
-  \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
-  \Rightarrow \dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
-\end{align*}
+\section{Approche utilisée}
+Je fais ça.
 
 % Début Section 3 ==================================================================
+\section{Calcul de N}
+Après avoir lancé la simulation pour exécuter $N_{init}$ expériences, il nous faut estimer le nombre d'expériences supplémentaires nécessaires pour arriver à un intervalle de confiance à 95\% dont la demi-largeur ne dépasse pas $\Delta_{max}$.
+
+\textit{Ce nombre d'expériences $n$ peut être calculé en utilisant la formule pour la largeur de l'intervalle de confiance.}
+
+Nous connaissons le calcul pour la largeur \(\Delta_{I_c}\) de l'intervalle de confiance, et pouvons en déduire celui pour sa demi-largeur sans efforts~:
+\begin{align*}
+  &\Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
+  \Rightarrow &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
+\end{align*}
+
+Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans notre programme.
+\begin{align*}
+  &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
+  \Rightarrow &\dfrac{\Delta_{I_c}}{2\cdot z_{1-\frac{\alpha}{2}}} = \dfrac{s}{\sqrt{n}} \\
+  \Rightarrow &\dfrac{\Delta_{I_c}}{2\cdot s\cdot z_{1-\frac{\alpha}{2}}} = \sqrt{n} \\
+  \Rightarrow &n = \dfrac{\Delta_{I_c}}{2\cdot s\cdot z_{1-\frac{\alpha}{2}}}
+\end{align*}
+
+% Début Section 4 ==================================================================
 \section{Choix d'implémentation}
 
 \subsection{Implémentation d'une expérience}
@@ -113,11 +129,11 @@ Méthode \texttt{simulateTillGivenCIHalfWidth}
 \subsection{Code client}
 La méthode main, quoi, avec les tests.
 
-% Début Section 4 ==================================================================
+% Début Section 5 ==================================================================
 \section{Résultats}
 Insérer graphiques super cool ici.
 
-% Début Section 5 ==================================================================
+% Début Section 6 ==================================================================
 \section{Conclusion}
 C'était \textbf{trivial}.
 

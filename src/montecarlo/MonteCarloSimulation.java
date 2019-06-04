@@ -61,11 +61,11 @@ public class MonteCarloSimulation {
             simulateNRuns(exp, initialNumberOfRuns, rnd, stat);
         } while (stat.get95ConfidenceIntervalHalfWidth() > maxHalfWidth);
 
-        // Simulate the experiment initialNumberOfRuns times
+        // Simulate the experiment initialNumberOfRuns
 
         // Estimate the number of runs needed for a 95% C.I. half width smaller than maxHalfWidth
 
-        // Simulate the experiment as many times as calculated
+        // Continues simulation until N experiments have been made
 
         // In case the final C.I. is too wide, simulate additionalNumberOfRuns times more,
         // until the C.I. is narrow enough
