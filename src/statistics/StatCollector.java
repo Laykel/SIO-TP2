@@ -100,12 +100,12 @@ public class StatCollector {
      * @return half of the interval width for the C.I. (95%) for the mean of the observations
      */
     public double get95ConfidenceIntervalHalfWidth() {
-        final double normalQuartile = 1.959964;
+        final double normalQuantile = 1.959964;
 
         if (numberOfObs < 2) {
             return Double.NaN;
         } else {
-            return normalQuartile * getStandardDeviation() / Math.sqrt(numberOfObs);
+            return normalQuantile * getStandardDeviation() / Math.sqrt(numberOfObs);
         }
     }
 }

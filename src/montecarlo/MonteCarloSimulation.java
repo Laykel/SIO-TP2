@@ -56,16 +56,19 @@ public class MonteCarloSimulation {
                                                     long additionalNumberOfRuns,
                                                     Random rnd,
                                                     StatCollector stat) {
-        // TESTS
-        do {
-            simulateNRuns(exp, initialNumberOfRuns, rnd, stat);
-        } while (stat.get95ConfidenceIntervalHalfWidth() > maxHalfWidth);
+        final double normalQuantile = 1.959964;
 
         // Simulate the experiment initialNumberOfRuns
+        simulateNRuns(exp, initialNumberOfRuns, rnd, stat);
 
         // Estimate the number of runs needed for a 95% C.I. half width smaller than maxHalfWidth
+        double estimatedNumberOfRunsNeeded =
+                Math.pow(((normalQuantile * stat.getStandardDeviation()) / maxHalfWidth), 2);
+
+        long numberOfRunsRemaining = (long) Math.ceil(estimatedNumberOfRunsNeeded) - initialNumberOfRuns;
 
         // Continues simulation until N experiments have been made
+        simulateNRuns(exp, numberOfRunsRemaining, rnd, stat);
 
         // In case the final C.I. is too wide, simulate additionalNumberOfRuns times more,
         // until the C.I. is narrow enough

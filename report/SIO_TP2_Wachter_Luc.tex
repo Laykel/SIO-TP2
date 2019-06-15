@@ -1,6 +1,6 @@
 % Preamble
 % ---
-\documentclass[paper=a4, fontsize=13pt]{scrartcl}
+\documentclass[paper=a4, fontsize=11pt]{scrartcl}
 
 % Packages =========================================================================
 % ---
@@ -76,64 +76,67 @@
 
 \maketitle
 
-% Début Section 1 ==================================================================
+% Début Section ==================================================================
 \section{Introduction}
 De quoi s'agit-il ? C'est pourtant clair.
 \\
 Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
+Rapport SIO
+- Commenter les résultats de la simulation, normalement le code est bien documenté et apparait peu dans le rapport
+- Titre
+-  "Article scientifique"
+- Pas de tables des matières / figures, pas de page de garde
+- Rédaction scientifique : Tables et graphiques AVEC légendes avec numéro (pour référencement), décrit avec précision
+- Protocole utilisé pour obtenir les résultats
+- Rappeler les définitions des symboles
+- Aller jusqu'à 7 décimales au maximum
+- Ne pas mélanger les différentes formes d'écriture (décimales ou $E^x$)
+- Taille police 11
+- Numéro de page
+- Texte justifié
+
+
+\begin{align*}
+  \text{E}(D) = \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1
+\end{align*}
+
 \newpage
 
-% Début Section 2 ==================================================================
+% Début Section ==================================================================
 \section{Approche utilisée}
 Je fais ça.
 
-% Début Section 3 ==================================================================
-\section{Calcul de N}
+% Début Section ==================================================================
+\section{Choix du nombre d'expériences à effectuer}
+Calcul de N
+
 Après avoir lancé la simulation pour exécuter $N_{init}$ expériences, il nous faut estimer le nombre d'expériences supplémentaires nécessaires pour arriver à un intervalle de confiance à 95\% dont la demi-largeur ne dépasse pas $\Delta_{max}$.
 
-\textit{Ce nombre d'expériences $n$ peut être calculé en utilisant la formule pour la largeur de l'intervalle de confiance.}
+\textit{Ce nombre d'expériences $n$ peut être estimé en utilisant la formule pour la largeur de l'intervalle de confiance.}
 
 Nous connaissons le calcul pour la largeur \(\Delta_{I_c}\) de l'intervalle de confiance, et pouvons en déduire celui pour sa demi-largeur sans efforts~:
 \begin{align*}
   &\Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
-  \Rightarrow &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
+  \Rightarrow &\ \dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{align*}
 
 Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans notre programme.
 \begin{align*}
-  &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
-  \Rightarrow &\dfrac{\Delta_{I_c}}{2\cdot z_{1-\frac{\alpha}{2}}} = \dfrac{s}{\sqrt{n}} \\
-  \Rightarrow &\dfrac{\Delta_{I_c}}{2\cdot s\cdot z_{1-\frac{\alpha}{2}}} = \sqrt{n} \\
-  \Rightarrow &n = \dfrac{\Delta_{I_c}}{2\cdot s\cdot z_{1-\frac{\alpha}{2}}}
+  &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\ \\
+  \Rightarrow &\ \Delta_{I_c} = \dfrac{2\cdot z_{1-\frac{\alpha}{2}}\cdot s}{\sqrt{n}} \\ \\
+  \Rightarrow &\ \Delta_{I_c}^2 = \dfrac{4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2}{n} \\ \\
+  \Rightarrow &\ \Delta_{I_c}^2\cdot n = 4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2 \\ \\
+  \Rightarrow &\ n = \dfrac{4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2} \\
 \end{align*}
 
-% Début Section 4 ==================================================================
-\section{Choix d'implémentation}
-
-\subsection{Implémentation d'une expérience}
-Implémentation d'\texttt{Experiment}
-
-\begin{lstlisting}[frame=single]
-public double execute(Random rnd) {
-    // Generate two points in the unit square and return the distance
-    // between them
-    return Point2D.distance(rnd.nextDouble(), rnd.nextDouble(),
-                            rnd.nextDouble(), rnd.nextDouble());
-}
-\end{lstlisting}
-
-\subsection{Méthode principale de simulation}
-Méthode \texttt{simulateTillGivenCIHalfWidth}
-
-\subsection{Code client}
-La méthode main, quoi, avec les tests.
-
-% Début Section 5 ==================================================================
+% Début Section ==================================================================
 \section{Résultats}
 Insérer graphiques super cool ici.
 
-% Début Section 6 ==================================================================
+Qualité de l'estimation ???
+
+% Début Section ==================================================================
 \section{Conclusion}
 C'était \textbf{trivial}.
 
