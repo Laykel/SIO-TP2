@@ -26,8 +26,8 @@ print(nrow(subset(observations, Average > exactValue+CIHalfWidth)) + nrow(subset
 # Generate points plot
 pdf(paste(plotsDir, "PointsCloud.pdf", sep="/"), width=15, height=8)
 
-plot(1:1500, estimator, pch=16, axes=FALSE, col=ifelse(estimator > exactValue+CIHalfWidth, "red", ifelse(estimator <
-    exactValue-CIHalfWidth, "red", "black")))
+plot(1:1500, estimator, pch=16, axes=FALSE, xlab="Simulation", ylab="Valeur de l'estimateur", col=ifelse(estimator >
+    exactValue+CIHalfWidth, "red", ifelse(estimator < exactValue-CIHalfWidth, "red", "black")))
 axis(1, at=seq(0, 1500, 100), las=1)
 axis(2, at=seq(min(estimator), max(estimator), 0.00003))
 abline(h=exactValue, col="green", lwd=2)
@@ -38,20 +38,22 @@ box()
 
 # ===========================================================================================================
 # Generate histogram for the estimator
-pdf(paste(plotsDir, "EstimatorHistogram.pdf", sep="/"), width=15, height=8)
+pdf(paste(plotsDir, "EstimatorHistogram.pdf", sep="/"), width=12, height=8)
 
 hist(estimator, breaks=30, xaxt="n", main="Histogramme des estimateurs ponctuels",
     xlab="Valeur de l'estimateur ponctuel", ylab="Fréquence", col="darkslategray4")
-axis(1, at=seq(min(estimator), max(estimator), 0.00003), las=1)
+axis(1, at=seq(min(estimator), max(estimator), 0.000018), las=1)
 grid(col="gray")
 box()
 
 # ===========================================================================================================
 # Generate box plot for the estimator
-pdf(paste(plotsDir, "BoxPlot.pdf", sep="/"), width=15, height=8)
+pdf(paste(plotsDir, "BoxPlot.pdf", sep="/"), width=12, height=8)
 
-boxplot(estimator, horizontal=TRUE, main="Boîte à moustache des estimateurs ponctuels", col="darkslategray4",
+boxplot(estimator, horizontal=TRUE, xaxt="n", main="Boîte à moustache des estimateurs ponctuels", col="darkslategray4",
     xlab="Valeur de l'estimateur ponctuel")
+axis(1, at=quantile(estimator), las=1)
+abline(v=quantile(estimator), lty=2, las=1)
 
 # ===========================================================================================================
 # Confidence interval plot
@@ -65,17 +67,7 @@ w<-observations$CI95HalfWidth
 plotCI(x, y, w, pch=16, sfrac=0.003, xlab="Simulation", ylab="Valeur de l'estimateur", col=ifelse(estimator >
     exactValue+CIHalfWidth, "red", ifelse(estimator < exactValue-CIHalfWidth, "red", "black")))
 # Add line to show exact value
-abline(h=exactValue, lty=2, col="green")
-grid(lwd=2, col="gray")
-
-# legend(
-#     x=0.5, # x coordinate of the top left of the legend
-#     y=0.5, # y coordinate of the top left of the legend
-#     box.lty=0, # line type to surround the legend box (0 for none)
-#
-#     legend=c("Valeur de l'estimateur", "Valeur exacte de l'espérance"), # sequence of text for the legend
-#     pch=c(21, -1), # sequence of point types for the legend; -1 is a nonexistent point
-#     pt.bg=c("black", NULL), # sequence of fill colours for the points
-#     pt.cex=c(1.8, 1), # symbol size multiplier
-#     lty=c(1,3) # sequence of line types for the legend
-# )
+abline(h=exactValue, lty=2, lwd=1.5, col="green")
+grid(lwd=1, col="black")
+# legend(x="topleft", c("estimateur", "estimateur dont l'intervalle de confiance ne contient par la valeur exacte",
+# "valeur exacte"), cex=.8, col=c("black", "red", "green"), pch=c(16,16,-1), lty=c(1, 1, 3), lwd=c(1,1,2))

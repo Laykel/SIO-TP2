@@ -79,7 +79,7 @@
 % Début Section ==================================================================
 \section{Introduction}
 
-Dans ce travail pratique, nous nous intéressons au calcul de la distance moyenne entre deux points du carré unité. On désire donc calculer l'espérance de la distance euclidienne séparant deux points indépendants et identiquement distribués dans le carré unité $[0;1] \times [0;1]$.
+Dans ce travail pratique, nous nous intéressons au calcul de la distance moyenne entre deux points du carré unité. Il s'agit donc de calculer l'espérance de la distance euclidienne séparant deux points indépendants et identiquement distribués dans le carré unité $[0;1] \times [0;1]$.
 
 Si on note $P(x_1;y_1)$ et $Q(x_2;y_2)$ deux points du carré unité et $D$ la distance euclidienne qui les sépare, l'espérance de cette distance est
 \begin{equation*}
@@ -87,11 +87,9 @@ Si on note $P(x_1;y_1)$ et $Q(x_2;y_2)$ deux points du carré unité et $D$ la d
 \end{equation*}
 C'est cette espérance que l'on veut calculer.
 
-Pour ce faire, nous allons réaliser une simulation de Monte-Carlo afin de générer des estimateurs $\widehat{D}$ de $\text{E}(D)$ à partir de données empiriques.
+Pour ce faire, nous allons réaliser une simulation de Monte-Carlo afin de générer des estimateurs $\widehat{D}$ de $\text{E}(D)$ à partir d'échantillons de populations générées aléatoirement.
 
-Ce document a pour but
-
-\newpage
+Ce document a pour but de documenter les choix faits durant la conception du programme, mais surtout de présenter les résultats obtenus, de les interpréter et de les discuter.
 
 % Début Section ==================================================================
 \section{Approche utilisée}
@@ -101,7 +99,24 @@ Je fais ça.
 % Début Section ==================================================================
 \section{Correspondance des symboles}
 
-Les symboles mathématiques proposés dans la donnée du travail ne sont bien sûr pas propice à une utilisation en Java. Voici donc un
+Les symboles mathématiques proposés dans la donnée du travail ne sont bien sûr pas propices à une utilisation en Java. Le tableau \ref{table:correspondance} permet donc de faire le lien entre les symboles utilisés dans ce document et ceux utilisés dans le programme.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|l|l|}
+    \hline
+    Symbole mathématique & Symbole dans le code \\
+    \hline
+    $N_{init}$ & initialNumberOfRuns \\
+    $N_{add}$ & additionalNumberOfRuns \\
+    $N$ & estimatedNumberOfRunsNeeded \\
+    $\Delta_{max}$ & maxHalfWidth \\
+    $s$ & standardDeviation \\
+    \hline
+  \end{tabular}
+  \caption{Correspondance des symboles}
+  \label{table:correspondance}
+\end{table}
 
 % Début Section ==================================================================
 \section{Choix du nombre d'expériences à effectuer}
@@ -113,7 +128,7 @@ Ce nombre d'expériences $n$ peut être estimé en utilisant l'équation pour la
   \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{equation*}
 
-Adaptons cette équation pour notre cas pratique en remplaçant la largeur de l'intervalle de confiance $\Delta_{Ic}$ par la demi-largeur maximale $\Delta_{max}$ (constante donnée par le code appelant). Ce changement nous permet de faire fi du facteur deux du côté droit de l'équation, puisque nous nous intéressons à la demi-largeur et non à la largeur complète.
+Adaptons cette équation pour notre cas pratique en remplaçant la largeur de l'intervalle de confiance $\Delta_{Ic}$ par la demi-largeur maximale $\Delta_{max}$ (valeur fixée par le code appelant). Ce changement nous permet de faire fi du facteur deux du côté droit de l'équation, puisque nous nous intéressons à la demi-largeur et non à la largeur complète.
 \begin{equation*}
   \Delta_{max} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{equation*}
@@ -125,12 +140,10 @@ Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans n
   \Rightarrow \ n &= \dfrac{z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2}
 \end{align*}
 
-En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement avec nos expériences initiales, il nous est donc possible d'estimer un nombre d'expériences nécessaires pour arriver à la précision voulue.
+En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement à l'aide de nos expériences initiales, il nous est donc possible d'estimer un nombre d'expériences nécessaires pour arriver à la précision voulue.
 
 % Début Section ==================================================================
 \section{Résultats}
-
-Qualité de l'estimation ???
 
 \subsection{Distribution des estimateurs ponctuels $\widehat{D}$}
 
