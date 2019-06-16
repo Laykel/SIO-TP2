@@ -78,8 +78,7 @@
 
 % Début Section ==================================================================
 \section{Introduction}
-De quoi s'agit-il ? C'est pourtant clair.
-\\
+
 Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
 - Commenter les résultats de la simulation, normalement le code est bien documenté et apparait peu dans le rapport
@@ -106,16 +105,11 @@ Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
 -  "Article scientifique"
 
-\begin{align*}
-  \text{E}(D) &= \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1 \\ \\
-  &= \dfrac{2 + \sqrt{2} + 5\ln{\sqrt{2} + 1}}{15} \\ \\
-  &\approx 0,5214054
-\end{align*}
-
 \newpage
 
 % Début Section ==================================================================
 \section{Approche utilisée}
+
 Je fais ça.
 
 % Début Section ==================================================================
@@ -129,19 +123,16 @@ Les symboles mathématiques proposés dans la donnée du travail ne sont bien s�
 Après avoir lancé la simulation pour exécuter $N_{init}$ expériences, il nous faut estimer le nombre d'expériences supplémentaires nécessaires pour arriver à un intervalle de confiance à 95\% dont la demi-largeur ne dépasse pas $\Delta_{max}$.
 
 Ce nombre d'expériences $n$ peut être estimé en utilisant l'équation pour la largeur de l'intervalle de confiance~:
-
 \begin{equation*}
   \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{equation*}
 
 Adaptons cette équation pour notre cas pratique en remplaçant la largeur de l'intervalle de confiance $\Delta_{Ic}$ par la demi-largeur maximale $\Delta_{max}$ (constante donnée par le code appelant). Ce changement nous permet de faire fi du facteur deux du côté droit de l'équation, puisque nous nous intéressons à la demi-largeur et non à la largeur complète.
-
 \begin{equation*}
   \Delta_{max} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{equation*}
 
 Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans notre programme.
-
 \begin{align*}
   &\Delta_{max} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\ \\
   \Rightarrow &\ \sqrt{n} = \dfrac{z_{1-\frac{\alpha}{2}}\cdot s}{\Delta_{I_c}} \\ \\
@@ -152,12 +143,25 @@ En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s
 
 % Début Section ==================================================================
 \section{Résultats}
-Insérer graphiques super cool ici.
 
 Qualité de l'estimation ???
 
+\subsection{Distribution des estimateurs ponctuels }
+
+\subsection{Couverture empirique des intervalles de confiance}
+
+Afin d'analyser la couverture des intervalles de confiance calculés, la valeur exacte de $\text{E}(D)$ nous est donnée.
+\begin{align*}
+  \text{E}(D) &= \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1 \\ \\
+  &= \dfrac{2 + \sqrt{2} + 5\ln{\sqrt{2} + 1}}{15} \\ \\
+  &\approx 0,5214054
+\end{align*}
+
+\textit{Insérer ici graphique de fou de la slide 52}
+
 % Début Section ==================================================================
 \section{Conclusion}
+
 C'était \textbf{trivial}.
 
 \end{document}

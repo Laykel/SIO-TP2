@@ -22,17 +22,12 @@ class DistTwoPoints implements Experiment {
  * <p>
  * Runs the simulation with the DistTwoPoints experiment a large number of times, and writes the results
  * to a text file.
- * <p>
- * Launches simulation with following parameters:
- * - Initial number of runs = 1 000 000
- * - Additional runs to make, if needed = 100 000
- * - Max half width of the confidence interval = 0.000 05
  *
  * @author Luc Wachter
  */
 public class Main {
     // Number of simulation to run
-    private static final int NBR_OF_SIMULATIONS = 10;
+    private static final int NBR_OF_SIMULATIONS = 1500;
     // File where the data from the simulations will be written
     private static final String OUTPUT_FILE = "report/analysis/observations.csv";
 
@@ -43,6 +38,14 @@ public class Main {
     // Additional runs to make, if needed = 100 000
     private static final long ADDITIONAL_NBR_OF_RUNS = (long) 10e4;
 
+    /**
+     * Launches simulation with following parameters:
+     * - Initial number of runs = 1 000 000
+     * - Additional runs to make, if needed = 100 000
+     * - Max half width of the confidence interval = 0.000 05
+     * <p>
+     * Writes statistics about the simulations in file.
+     */
     public static void main(String[] args) {
         Random rnd = new Random(20190528);
 
