@@ -31,7 +31,9 @@ class DistTwoPoints implements Experiment {
  * @author Luc Wachter
  */
 public class Main {
-    private static final int NBR_OF_SIMULATIONS = 5;
+    // Number of simulation to run
+    private static final int NBR_OF_SIMULATIONS = 10;
+    // File where the data from the simulations will be written
     private static final String OUTPUT_FILE = "report/analysis/observations.csv";
 
     // Max half width of the confidence interval = 0.000 05
@@ -48,6 +50,8 @@ public class Main {
         Experiment experiment = new DistTwoPoints();
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(OUTPUT_FILE))) {
+            System.out.println("Writing observations data to " + OUTPUT_FILE);
+
             // Write headers of CSV file
             writer.write("NumberOfObs;");
             writer.write("Average;");
@@ -71,7 +75,7 @@ public class Main {
                 writer.write(stat.getVariance() + ";");
                 writer.write(stat.get95ConfidenceIntervalHalfWidth() + "\n");
 
-                System.out.println("Simulation " + (i + 1) + " of " + NBR_OF_SIMULATIONS);
+                System.out.println("Simulation " + (i + 1) + " of " + NBR_OF_SIMULATIONS + " done.");
             }
 
             writer.flush();

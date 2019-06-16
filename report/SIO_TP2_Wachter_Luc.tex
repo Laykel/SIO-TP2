@@ -84,10 +84,6 @@ Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
 - Commenter les résultats de la simulation, normalement le code est bien documenté et apparait peu dans le rapport
 
-- Titre
-
--  "Article scientifique"
-
 - Pas de tables des matières / figures, pas de page de garde
 
 - Rédaction scientifique : Tables et graphiques AVEC légendes avec numéro (pour référencement), décrit avec précision
@@ -106,6 +102,9 @@ Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
 - Texte justifié
 
+- Titre
+
+-  "Article scientifique"
 
 \begin{align*}
   \text{E}(D) &= \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1 \\ \\
@@ -120,11 +119,16 @@ Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 Je fais ça.
 
 % Début Section ==================================================================
+\section{Correspondance des symboles}
+
+Les symboles mathématiques proposés dans la donnée du travail ne sont bien sûr pas propice à une utilisation en Java. Voici donc un
+
+% Début Section ==================================================================
 \section{Choix du nombre d'expériences à effectuer}
 
 Après avoir lancé la simulation pour exécuter $N_{init}$ expériences, il nous faut estimer le nombre d'expériences supplémentaires nécessaires pour arriver à un intervalle de confiance à 95\% dont la demi-largeur ne dépasse pas $\Delta_{max}$.
 
-Ce nombre d'expériences $n$ peut être estimé en utilisant la formule pour la largeur de l'intervalle de confiance~:
+Ce nombre d'expériences $n$ peut être estimé en utilisant l'équation pour la largeur de l'intervalle de confiance~:
 
 \begin{equation*}
   \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}

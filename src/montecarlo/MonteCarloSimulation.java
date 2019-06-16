@@ -65,7 +65,11 @@ public class MonteCarloSimulation {
         double estimatedNumberOfRunsNeeded =
                 Math.pow(((normalQuantile * stat.getStandardDeviation()) / maxHalfWidth), 2);
 
-        long numberOfRunsRemaining = (long) Math.ceil(estimatedNumberOfRunsNeeded) - initialNumberOfRuns;
+        // Round the result up to the closest multiple of additionalNumberOfRuns
+        estimatedNumberOfRunsNeeded =
+                additionalNumberOfRuns * Math.ceil(estimatedNumberOfRunsNeeded / additionalNumberOfRuns);
+
+        long numberOfRunsRemaining = (long) estimatedNumberOfRunsNeeded - initialNumberOfRuns;
 
         // Continues simulation until N experiments have been made
         simulateNRuns(exp, numberOfRunsRemaining, rnd, stat);
