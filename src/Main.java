@@ -42,8 +42,7 @@ public class Main {
     private static final long ADDITIONAL_NBR_OF_RUNS = (long) 10e4;
 
     public static void main(String[] args) {
-//        Random rnd = new Random(20190528);
-        Random rnd = new Random();
+        Random rnd = new Random(20190528);
 
         // The experiment the simulation must run
         Experiment experiment = new DistTwoPoints();
@@ -72,11 +71,7 @@ public class Main {
                 writer.write(stat.getVariance() + ";");
                 writer.write(stat.get95ConfidenceIntervalHalfWidth() + "\n");
 
-                System.out.println("Number of observations: " + stat.getNumberOfObs());
-                System.out.println("Average: " + stat.getAverage());
-                System.out.println("Standard deviation: " + stat.getStandardDeviation());
-                System.out.println("Variance: " + stat.getVariance());
-                System.out.println("95% CI half width: " + stat.get95ConfidenceIntervalHalfWidth());
+                System.out.println("Simulation " + (i + 1) + " of " + NBR_OF_SIMULATIONS);
             }
 
             writer.flush();

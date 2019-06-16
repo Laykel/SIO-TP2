@@ -71,7 +71,7 @@
 % ---
 \begin{document}
 
-% Set language for listings
+% Set language for code listings
 \lstset{language=Java}
 
 \maketitle
@@ -82,23 +82,35 @@ De quoi s'agit-il ? C'est pourtant clair.
 \\
 Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
 
-Rapport SIO
 - Commenter les résultats de la simulation, normalement le code est bien documenté et apparait peu dans le rapport
+
 - Titre
+
 -  "Article scientifique"
+
 - Pas de tables des matières / figures, pas de page de garde
+
 - Rédaction scientifique : Tables et graphiques AVEC légendes avec numéro (pour référencement), décrit avec précision
+
 - Protocole utilisé pour obtenir les résultats
+
 - Rappeler les définitions des symboles
+
 - Aller jusqu'à 7 décimales au maximum
+
 - Ne pas mélanger les différentes formes d'écriture (décimales ou $E^x$)
+
 - Taille police 11
+
 - Numéro de page
+
 - Texte justifié
 
 
 \begin{align*}
-  \text{E}(D) = \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1
+  \text{E}(D) &= \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1 \\ \\
+  &= \dfrac{2 + \sqrt{2} + 5\ln{\sqrt{2} + 1}}{15} \\ \\
+  &\approx 0,5214054
 \end{align*}
 
 \newpage
@@ -109,24 +121,30 @@ Je fais ça.
 
 % Début Section ==================================================================
 \section{Choix du nombre d'expériences à effectuer}
-Calcul de N
+\textit{Calcul de N}
 
 Après avoir lancé la simulation pour exécuter $N_{init}$ expériences, il nous faut estimer le nombre d'expériences supplémentaires nécessaires pour arriver à un intervalle de confiance à 95\% dont la demi-largeur ne dépasse pas $\Delta_{max}$.
 
-\textit{Ce nombre d'expériences $n$ peut être estimé en utilisant la formule pour la largeur de l'intervalle de confiance.}
+Ce nombre d'expériences $n$ peut être estimé en utilisant la formule pour la largeur de l'intervalle de confiance~:
 
-Nous connaissons le calcul pour la largeur \(\Delta_{I_c}\) de l'intervalle de confiance, et pouvons en déduire celui pour sa demi-largeur sans efforts~:
+\begin{equation*}
+  \Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
+\end{equation*}
+
+Adaptons cette équation pour notre cas pratique en remplaçant la largeur de l'intervalle de confiance $\Delta_{Ic}$ par la demi-largeur maximale $\Delta_{max}$ (constante donnée par le code appelant). Ce changement nous permet de faire fi du facteur deux du côté droit de l'équation, puisque nous nous intéressons à la demi-largeur et non à la largeur complète.
+
+en utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement.
+
 \begin{align*}
-  &\Delta_{I_c} = 2\cdot z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
+  &\Delta_{max} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\
   \Rightarrow &\ \dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}}
 \end{align*}
 
 Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans notre programme.
+
 \begin{align*}
   &\dfrac{\Delta_{I_c}}{2} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\ \\
-  \Rightarrow &\ \Delta_{I_c} = \dfrac{2\cdot z_{1-\frac{\alpha}{2}}\cdot s}{\sqrt{n}} \\ \\
-  \Rightarrow &\ \Delta_{I_c}^2 = \dfrac{4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2}{n} \\ \\
-  \Rightarrow &\ \Delta_{I_c}^2\cdot n = 4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2 \\ \\
+  \Rightarrow &\ \sqrt{n} = \dfrac{2\cdot z_{1-\frac{\alpha}{2}}\cdot s}{\Delta_{I_c}} \\ \\
   \Rightarrow &\ n = \dfrac{4\cdot z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2} \\
 \end{align*}
 
