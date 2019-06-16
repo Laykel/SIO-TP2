@@ -79,31 +79,17 @@
 % Début Section ==================================================================
 \section{Introduction}
 
-Si vous ne le savez pas, c'est que vous n'êtes pas prêts.
+Dans ce travail pratique, nous nous intéressons au calcul de la distance moyenne entre deux points du carré unité. On désire donc calculer l'espérance de la distance euclidienne séparant deux points indépendants et identiquement distribués dans le carré unité $[0;1] \times [0;1]$.
 
-- Commenter les résultats de la simulation, normalement le code est bien documenté et apparait peu dans le rapport
+Si on note $P(x_1;y_1)$ et $Q(x_2;y_2)$ deux points du carré unité et $D$ la distance euclidienne qui les sépare, l'espérance de cette distance est
+\begin{equation*}
+  \text{E}(D) = \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1.
+\end{equation*}
+C'est cette espérance que l'on veut calculer.
 
-- Pas de tables des matières / figures, pas de page de garde
+Pour ce faire, nous allons réaliser une simulation de Monte-Carlo afin de générer des estimateurs $\widehat{D}$ de $\text{E}(D)$ à partir de données empiriques.
 
-- Rédaction scientifique : Tables et graphiques AVEC légendes avec numéro (pour référencement), décrit avec précision
-
-- Protocole utilisé pour obtenir les résultats
-
-- Rappeler les définitions des symboles
-
-- Aller jusqu'à 7 décimales au maximum
-
-- Ne pas mélanger les différentes formes d'écriture (décimales ou $E^x$)
-
-- Taille police 11
-
-- Numéro de page
-
-- Texte justifié
-
-- Titre
-
--  "Article scientifique"
+Ce document a pour but
 
 \newpage
 
@@ -134,9 +120,9 @@ Adaptons cette équation pour notre cas pratique en remplaçant la largeur de l'
 
 Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans notre programme.
 \begin{align*}
-  &\Delta_{max} = z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\ \\
-  \Rightarrow &\ \sqrt{n} = \dfrac{z_{1-\frac{\alpha}{2}}\cdot s}{\Delta_{I_c}} \\ \\
-  \Rightarrow &\ n = \dfrac{z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2}
+  \Delta_{max} &= z_{1-\frac{\alpha}{2}}\cdot \dfrac{s}{\sqrt{n}} \\ \\
+  \Rightarrow \ \sqrt{n} &= \dfrac{z_{1-\frac{\alpha}{2}}\cdot s}{\Delta_{I_c}} \\ \\
+  \Rightarrow \ n &= \dfrac{z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2}
 \end{align*}
 
 En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement avec nos expériences initiales, il nous est donc possible d'estimer un nombre d'expériences nécessaires pour arriver à la précision voulue.
@@ -146,7 +132,7 @@ En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s
 
 Qualité de l'estimation ???
 
-\subsection{Distribution des estimateurs ponctuels }
+\subsection{Distribution des estimateurs ponctuels $\widehat{D}$}
 
 \subsection{Couverture empirique des intervalles de confiance}
 

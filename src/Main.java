@@ -60,7 +60,7 @@ public class Main {
             writer.write("Average;");
             writer.write("StandardDeviation;");
             writer.write("Variance;");
-            writer.write("95CIHalfWidth\n");
+            writer.write("CI95HalfWidth\n");
 
             // Run simulation as many times as defined
             for (int i = 0; i < NBR_OF_SIMULATIONS; i++) {
