@@ -11,21 +11,28 @@ observations<-read.csv(file.path(dataDir, "observations.csv"), header=TRUE, sep 
 # Store values that are often used
 estimator<-observations$Average
 exactValue<-0.5214054
+CIHalfWidth<-0.00005
 
 # Simple summary of our estimators data
 options(digits=10)
-summary(estimator)
+print(summary(estimator))
+
+## Number of estimators that are out of the CI
+print("Number of estimators that are out of the CI:")
+print(nrow(subset(observations, Average > exactValue+CIHalfWidth)) + nrow(subset(observations, Average <
+    exactValue-CIHalfWidth)))
 
 # ===========================================================================================================
 # Generate points plot
 pdf(paste(plotsDir, "PointsCloud.pdf", sep="/"), width=15, height=8)
 
-plot(1:1500, estimator, axes=FALSE)
+plot(1:1500, estimator, pch=16, axes=FALSE, col=ifelse(estimator > exactValue+CIHalfWidth, "red", ifelse(estimator <
+    exactValue-CIHalfWidth, "red", "black")))
 axis(1, at=seq(0, 1500, 100), las=1)
 axis(2, at=seq(min(estimator), max(estimator), 0.00003))
 abline(h=exactValue, col="green", lwd=2)
-abline(h=exactValue-0.00005, col="red", lwd=2)
-abline(h=exactValue+0.00005, col="red", lwd=2)
+abline(h=exactValue-CIHalfWidth, col="red", lwd=2)
+abline(h=exactValue+CIHalfWidth, col="red", lwd=2)
 grid(col="gray")
 box()
 
@@ -55,7 +62,8 @@ y<-estimator[1:100]
 w<-observations$CI95HalfWidth
 
 # Plot Confidence Interval plot
-plotCI(x, y, w, pch=16, sfrac=0.003, xlab="Simulation", ylab="Valeur de l'estimateur")
+plotCI(x, y, w, pch=16, sfrac=0.003, xlab="Simulation", ylab="Valeur de l'estimateur", col=ifelse(estimator >
+    exactValue+CIHalfWidth, "red", ifelse(estimator < exactValue-CIHalfWidth, "red", "black")))
 # Add line to show exact value
 abline(h=exactValue, lty=2, col="green")
 grid(lwd=2, col="gray")
