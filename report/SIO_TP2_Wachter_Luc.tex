@@ -184,7 +184,7 @@ Il y donc une tendance vers une distribution symétrique autour de la valeur exa
 
 On observe une distribution cohérente par rapport à l'histogramme de la figure \ref{fig:hist}. On peut également remarquer que 3 estimateurs sont si éloignés que leur I.C. ne contient pas la valeur exacte. Cela signifie que le seuil de confiance empirique de cet échantillon des données s'élève à 97\%.
 
-\begin{figure}[h!]
+\begin{figure}[b!]
   \centering
   \includegraphics[scale=0.46]{../analysis/plots/CIplot.pdf}
   \caption{100 intervalles de confiance au seuil de 95\%}
@@ -193,7 +193,7 @@ On observe une distribution cohérente par rapport à l'histogramme de la figure
 
 Augmentons maintenant la portée de notre analyse en regardant la totalité des simulations, à l'aide du nuage de points de la figure \ref{fig:PointsCloud}. Ici, les deux droites rouges valent respectivement $\text{E}(D) \pm \Delta_{max}$. On compte alors 62 estimateurs en dehors de cet intervalle (4.133\% des estimateurs générés), ce qui donne un seuil de confiance empirique de 95.867\%.
 
-\begin{figure}[h!]
+\begin{figure}[b!]
   \centering
   \includegraphics[scale=0.46]{../analysis/plots/PointsCloud.pdf}
   \caption{Nuage de points}
@@ -203,6 +203,10 @@ Augmentons maintenant la portée de notre analyse en regardant la totalité des 
 % Début Section ==================================================================
 \section{Conclusion}
 
+Au fur et à mesure de ce travail pratique, nous nous sommes efforcés d'estimer la valeur de $\text{E}(D)$ empiriquement. Il est clair cependant, que ce n'était pas le vrai but de ce travail. En effet, il est plus important de nous sensibiliser à la juste utilisation des méthodes approchées.
 
+Grâce à ce travail, nous avons pu remarquer empiriquement qu'une simulation ne vaut pas grand chose si l'on ne quantifie pas l'erreur à l'aide de l'intervalle de confiance. En outre, même avec l'assurance d'atteindre un intervalle de confiance précis, il est toujours possible de se retrouver bien plus éloigné de la valeur exacte qu'on le voudrait en pratique. Il faut donc toujours avoir un regard critique sur les résultats des méthodes approchées.
+
+Dans ce travail, cependant, nos observations empiriques nous ont permis de confirmer les intuitions acquises durant le cours. Nous avons vu qu'il est difficile de réduire la largeur de l'intervalle de confiance et nous avons confirmé par des observations les valeurs des intervalles de confiance, et la distribution des estimateurs.
 
 \end{document}
