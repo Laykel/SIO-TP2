@@ -43,6 +43,7 @@ pdf(paste(plotsDir, "EstimatorHistogram.pdf", sep="/"), width=12, height=8)
 hist(estimator, breaks=30, xaxt="n", main="Histogramme des estimateurs ponctuels",
     xlab="Valeur de l'estimateur ponctuel", ylab="Fréquence", col="darkslategray4")
 axis(1, at=seq(min(estimator), max(estimator), 0.000018), las=1)
+abline(v=exactValue, col="green", lwd=2)
 grid(col="gray")
 box()
 
@@ -54,6 +55,7 @@ boxplot(estimator, horizontal=TRUE, xaxt="n", main="Boîte à moustache des esti
     xlab="Valeur de l'estimateur ponctuel")
 axis(1, at=quantile(estimator), las=1)
 abline(v=quantile(estimator), lty=2, las=1)
+abline(v=exactValue, col="green", lwd=2)
 
 # ===========================================================================================================
 # Confidence interval plot

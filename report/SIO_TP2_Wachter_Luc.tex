@@ -16,6 +16,7 @@
 \usepackage[utf8]{inputenc}   % UTF-8 support
 \usepackage[french]{babel}
 \usepackage{amsmath,amsfonts} % Advanced math typesetting
+\usepackage{graphicx}
 \usepackage{listings}         % Source code formatting and highlighting
 \usepackage{lastpage}         % Reference to last page
 \usepackage[parfill]{parskip} % No indent at start of new line
@@ -91,10 +92,7 @@ Pour ce faire, nous allons réaliser une simulation de Monte-Carlo afin de gén�
 
 Ce document a pour but de documenter les choix faits durant la conception du programme, mais surtout de présenter les résultats obtenus, de les interpréter et de les discuter.
 
-% Début Section ==================================================================
-\section{Approche utilisée}
-
-Je fais ça.
+\newpage
 
 % Début Section ==================================================================
 \section{Correspondance des symboles}
@@ -107,11 +105,11 @@ Les symboles mathématiques proposés dans la donnée du travail ne sont bien s�
     \hline
     Symbole mathématique & Symbole dans le code \\
     \hline
-    $N_{init}$ & initialNumberOfRuns \\
-    $N_{add}$ & additionalNumberOfRuns \\
-    $N$ & estimatedNumberOfRunsNeeded \\
-    $\Delta_{max}$ & maxHalfWidth \\
-    $s$ & standardDeviation \\
+    $N_{init}$ & \texttt{initialNumberOfRuns} \\
+    $N_{add}$ & \texttt{additionalNumberOfRuns} \\
+    $N$ & \texttt{estimatedNumberOfRunsNeeded} \\
+    $\Delta_{max}$ & \texttt{maxHalfWidth} \\
+    $s$ & \texttt{standardDeviation} \\
     \hline
   \end{tabular}
   \caption{Correspondance des symboles}
@@ -140,27 +138,71 @@ Il nous suffit alors d'isoler $n$ pour déterminer la formule à utiliser dans n
   \Rightarrow \ n &= \dfrac{z_{1-\frac{\alpha}{2}}^2\cdot s^2}{\Delta_{I_c}^2}
 \end{align*}
 
-En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement à l'aide de nos expériences initiales, il nous est donc possible d'estimer un nombre d'expériences nécessaires pour arriver à la précision voulue.
+En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s$ de l'écart-type calculé empiriquement à l'aide de nos expériences initiales, il nous est donc possible d'estimer le nombre d'expériences nécessaires pour arriver à la précision voulue.
+
+% Début Section ==================================================================
+\section{Approche utilisée}
+
+Afin d'obtenir les résultats qui seront discutés dans la section suivantes, 1500 simulations ont été lancées en séquence. Pour chacune d'entre elles, les paramètres suivants ont été fixés~:
+
+$\Delta_{max} = 5\cdot 10^{-5}$,\hspace{20pt} $N_{init} = 10^6$,\hspace{20pt} $N_{add} = 10^5$
+
+En outre, la séquence de nombres créés par le générateur pseudo-aléatoire dans le programme a été fixée à l'aide de la graine \texttt{20190528}.
+
+Les valeurs ayant été enregistrées à la fin de chaque simulation sont le nombre d'observations effectuées, la valeur de l'estimateur calculé (la moyenne), l'écart-type, la variance et la demi-largeur de l'intervalle de confiance à 95\%.
 
 % Début Section ==================================================================
 \section{Résultats}
 
-\subsection{Distribution des estimateurs ponctuels $\widehat{D}$}
+\subsection{Valeur exacte de l'espérance}
 
-\subsection{Couverture empirique des intervalles de confiance}
-
-Afin d'analyser la couverture des intervalles de confiance calculés, la valeur exacte de $\text{E}(D)$ nous est donnée.
+Afin d'analyser les résultats de la simulation, la valeur exacte de $\text{E}(D)$ nous est donnée.
 \begin{align*}
   \text{E}(D) &= \int _0^1\int _0^1\int _0^1\int _0^1\sqrt{\:\left(x_2-x_1\right)^2+\left(y_2-y_1\right)^2}dy_2dy_1dx_2dx_1 \\ \\
   &= \dfrac{2 + \sqrt{2} + 5\ln{\sqrt{2} + 1}}{15} \\ \\
   &\approx 0,5214054
 \end{align*}
 
-\textit{Insérer ici graphique de fou de la slide 52}
+Dans toutes les figures suivantes, cette valeur exacte sera mise en évidence par une droite de couleur verte.
+
+\subsection{Distribution des estimateurs ponctuels $\widehat{D}$}
+
+En observant l'histogramme de la figure \ref{fig:hist}, nous remarquons la forme caractéristique de la loi normale. L'apparition d'une telle distribution n'est pas surprenante, puisque nos $\widehat{D}$ sont calculés comme la moyenne des résultats d'expériences aléatoires indépendantes, et que le théorème central limite nous permet d'établir la convergence de la loi de ces expériences vers la loi normale.
+
+Il y donc une tendance vers une distribution symétrique autour de la valeur exacte de l'espérance recherchée.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.5]{../analysis/plots/EstimatorHistogram.pdf}
+  \caption{Histogramme des estimateurs $\widehat{D}$}
+  \label{fig:hist}
+\end{figure}
+
+\subsection{Couverture empirique des intervalles de confiance}
+
+À l'aide du graphique des intervalles de confiance de la figure \ref{fig:CIPlot}, nous pouvons visualiser les intervalles de confiance des 100 premières simulations effectuées. Sur cette figure, les points représentent la valeur de l'estimateur $\widehat{D}$, tandis que les barres montrent l'I.C. pour chaque estimateur. Les éléments en rouge sont ceux dont l'I.C. ne contient pas la valeur exacte de l'espérance recherchée.
+
+On observe une distribution cohérente par rapport à l'histogramme de la figure \ref{fig:hist}. On peut également remarquer que 3 estimateurs sont si éloignés que leur I.C. ne contient pas la valeur exacte. Cela signifie que le seuil de confiance empirique de cet échantillon des données s'élève à 97\%.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.46]{../analysis/plots/CIplot.pdf}
+  \caption{100 intervalles de confiance au seuil de 95\%}
+  \label{fig:CIPlot}
+\end{figure}
+
+Augmentons maintenant la portée de notre analyse en regardant la totalité des simulations, à l'aide du nuage de points de la figure \ref{fig:PointsCloud}. Ici, les deux droites rouges valent respectivement $\text{E}(D) \pm \Delta_{max}$. On compte alors 62 estimateurs en dehors de cet intervalle (4.133\% des estimateurs générés), ce qui donne un seuil de confiance empirique de 95.867\%.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.46]{../analysis/plots/PointsCloud.pdf}
+  \caption{Nuage de points}
+  \label{fig:PointsCloud}
+\end{figure}
 
 % Début Section ==================================================================
 \section{Conclusion}
 
-C'était \textbf{trivial}.
+
 
 \end{document}
