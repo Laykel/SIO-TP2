@@ -108,7 +108,7 @@ Les symboles mathématiques proposés dans la donnée du travail ne sont bien s�
     \hline
     $N_{init}$ & \texttt{initialNumberOfRuns} \\
     $N_{add}$ & \texttt{additionalNumberOfRuns} \\
-    $N$ & \texttt{estimatedNumberOfRunsNeeded} \\
+    $n$ & \texttt{estimatedNumberOfRunsNeeded} \\
     $\Delta_{max}$ & \texttt{maxHalfWidth} \\
     $s$ & \texttt{standardDeviation} \\
     \hline
@@ -144,9 +144,9 @@ En utilisant $1.959964$ comme quantile de la loi normale et avec l'estimateur $s
 % Début Section ==================================================================
 \section{Approche utilisée}
 
-Afin d'obtenir les résultats qui seront discutés dans la section suivantes, 1500 simulations ont été lancées en séquence. Pour chacune d'entre elles, les paramètres suivants ont été fixés~:
+Afin d'obtenir les résultats qui seront discutés dans la section suivante, 1500 simulations ont été lancées en séquence. Pour chacune d'entre elles, les paramètres suivants ont été fixés~:
 
-$\Delta_{max} = 5\cdot 10^{-5}$,\hspace{20pt} $N_{init} = 10^6$,\hspace{20pt} $N_{add} = 10^5$
+$\Delta_{max} = 5\cdot 10^{-5}$,\hspace{20pt} $N_{init} = 10^6$,\hspace{20pt} $N_{add} = 10^5$.
 
 En outre, la séquence de nombres créés par le générateur pseudo-aléatoire dans le programme a été fixée à l'aide de la graine \texttt{20190528}.
 
@@ -170,7 +170,7 @@ Dans toutes les figures suivantes, cette valeur exacte sera mise en évidence pa
 
 En observant l'histogramme de la figure \ref{fig:hist}, nous remarquons la forme caractéristique de la loi normale. L'apparition d'une telle distribution n'est pas surprenante, puisque nos $\widehat{D}$ sont calculés comme la moyenne des résultats d'expériences aléatoires indépendantes, et que le théorème central limite nous permet d'établir la convergence de la loi de ces expériences vers la loi normale.
 
-Il y donc une tendance vers une distribution symétrique autour de la valeur exacte de l'espérance recherchée. On observe plus facilement, à l'aide de la boîte à moustache de la figure \ref{fig:boxplot} que la moyenne (représentée par un segment noir épais au centre de la boîte) se rapproche de la valeur exacte, et que les observations sont distribuées symétriquement et uniformément autour de cette valeur.
+Il y a donc une tendance vers une distribution symétrique autour de la valeur exacte de l'espérance recherchée. On observe plus facilement, à l'aide de la boîte à moustache de la figure \ref{fig:boxplot}, que la moyenne de nos expériences (représentée par un segment noir épais au centre de la boîte) se rapproche de la valeur exacte, et que les observations sont distribuées symétriquement et uniformément autour de cette valeur.
 
 \begin{figure}[H]
   \centering
