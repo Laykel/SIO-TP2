@@ -69,7 +69,7 @@ w<-observations$CI95HalfWidth
 plotCI(x, y, w, pch=16, sfrac=0.003, xlab="Simulation", ylab="Valeur de l'estimateur", col=ifelse(estimator >
     exactValue+CIHalfWidth, "red", ifelse(estimator < exactValue-CIHalfWidth, "red", "black")))
 # Add line to show exact value
-abline(h=exactValue, lty=2, lwd=1.5, col="green")
+abline(h=exactValue, lty=2, lwd=2.5, col="green")
 grid(lwd=1, col="black")
 # legend(x="topleft", c("estimateur", "estimateur dont l'intervalle de confiance ne contient par la valeur exacte",
 # "valeur exacte"), cex=.8, col=c("black", "red", "green"), pch=c(16,16,-1), lty=c(1, 1, 3), lwd=c(1,1,2))

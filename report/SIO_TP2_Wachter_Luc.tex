@@ -16,6 +16,7 @@
 \usepackage[utf8]{inputenc}   % UTF-8 support
 \usepackage[french]{babel}
 \usepackage{amsmath,amsfonts} % Advanced math typesetting
+\usepackage{float}            % Place figures exactly where we want
 \usepackage{graphicx}
 \usepackage{listings}         % Source code formatting and highlighting
 \usepackage{lastpage}         % Reference to last page
@@ -169,13 +170,20 @@ Dans toutes les figures suivantes, cette valeur exacte sera mise en évidence pa
 
 En observant l'histogramme de la figure \ref{fig:hist}, nous remarquons la forme caractéristique de la loi normale. L'apparition d'une telle distribution n'est pas surprenante, puisque nos $\widehat{D}$ sont calculés comme la moyenne des résultats d'expériences aléatoires indépendantes, et que le théorème central limite nous permet d'établir la convergence de la loi de ces expériences vers la loi normale.
 
-Il y donc une tendance vers une distribution symétrique autour de la valeur exacte de l'espérance recherchée.
+Il y donc une tendance vers une distribution symétrique autour de la valeur exacte de l'espérance recherchée. On observe plus facilement, à l'aide de la boîte à moustache de la figure \ref{fig:boxplot} que la moyenne (représentée par un segment noir épais au centre de la boîte) se rapproche de la valeur exacte, et que les observations sont distribuées symétriquement et uniformément autour de cette valeur.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.5]{../analysis/plots/EstimatorHistogram.pdf}
   \caption{Histogramme des estimateurs $\widehat{D}$}
   \label{fig:hist}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{../analysis/plots/BoxPlot.pdf}
+  \caption{Boîte à moustache des estimateurs $\widehat{D}$}
+  \label{fig:boxplot}
 \end{figure}
 
 \subsection{Couverture empirique des intervalles de confiance}
@@ -184,7 +192,7 @@ Il y donc une tendance vers une distribution symétrique autour de la valeur exa
 
 On observe une distribution cohérente par rapport à l'histogramme de la figure \ref{fig:hist}. On peut également remarquer que 3 estimateurs sont si éloignés que leur I.C. ne contient pas la valeur exacte. Cela signifie que le seuil de confiance empirique de cet échantillon des données s'élève à 97\%.
 
-\begin{figure}[b!]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.46]{../analysis/plots/CIplot.pdf}
   \caption{100 intervalles de confiance au seuil de 95\%}
@@ -193,7 +201,7 @@ On observe une distribution cohérente par rapport à l'histogramme de la figure
 
 Augmentons maintenant la portée de notre analyse en regardant la totalité des simulations, à l'aide du nuage de points de la figure \ref{fig:PointsCloud}. Ici, les deux droites rouges valent respectivement $\text{E}(D) \pm \Delta_{max}$. On compte alors 62 estimateurs en dehors de cet intervalle (4.133\% des estimateurs générés), ce qui donne un seuil de confiance empirique de 95.867\%.
 
-\begin{figure}[b!]
+\begin{figure}[H]
   \centering
   \includegraphics[scale=0.46]{../analysis/plots/PointsCloud.pdf}
   \caption{Nuage de points}
