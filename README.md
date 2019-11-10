@@ -8,4 +8,4 @@ Donnée complète dans [TP2-Donnée.pdf](TP2-Donnée.pdf).
 
 ## Détails
 
-Plus d'informations dans le rapport du dossier `report`.
+Plus d'informations dans le [rapport](report/SIO_TP2_Wachter_Luc.pdf) du dossier `report`.
